@@ -20,7 +20,6 @@ erDiagram
         float temp_f
         float wind_mph
         boolean precip
-        string weather_desc
     }
 
     QB_METADATA {
