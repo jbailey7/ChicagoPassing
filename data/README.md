@@ -22,14 +22,10 @@ erDiagram
         boolean precip
     }
 
-    QB_METADATA {
-        string qb_id PK
-        string qb_name
-    }
-
     QB_GAME_STATS {
         string game_id FK
-        string qb_id FK
+        string qb_id
+        string qb_name
         string offense_team
         string defense_team
         boolean is_home
@@ -46,11 +42,10 @@ erDiagram
     DEFENSE_SEASON_STATS {
         int season
         string defense_team
-        float def_epa_allowed_season
+        float def_epa_allowed_per_play_season
     }
 
     %% Relationships
     GAMES ||--|| GAME_WEATHER : "has"
     GAMES ||--o{ QB_GAME_STATS : "includes"
-    QB_METADATA ||--o{ QB_GAME_STATS : "appears in"
-    DEFENSE_SEASON_STATS }o--|| QB_GAME_STATS : "faces"
+    DEFENSE_SEASON_STATS ||--o{ QB_GAME_STATS : "opponent season strength"
