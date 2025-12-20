@@ -1,5 +1,6 @@
 ### DATA SETUP
 
+```mermaid
 erDiagram
 
     GAMES {
@@ -49,3 +50,4 @@ erDiagram
     GAMES ||--|| GAME_WEATHER : "has"
     GAMES ||--o{ QB_GAME_STATS : "includes"
     DEFENSE_SEASON_STATS ||--o{ QB_GAME_STATS : "opponent season strength"
+```
