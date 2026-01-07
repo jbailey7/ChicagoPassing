@@ -71,7 +71,7 @@ The QB_GAME_STATS table contains information about each quarterback performance 
 All of this data comes straight from the data source except for number of dropbacks and EPA per dropback. I compute dropbacks as the sum of pass attempts and sacks at the play-by-play level, summing per each quarterback per game. I then divide total EPA by this sum to create EPA per dropback. 
 
 ### Table 3: DEFENSE_SEASON_STATS
-The DEFENSE_SEASON_STATS table contains season-level defensive EPA allowed per play for each team. For each quarterback–game observation, the opposing defense’s season-level EPA is joined using the game season and defensive team, providing a control for opponent strength.
+The DEFENSE_SEASON_STATS table contains season-level defensive EPA allowed per play for each team. For each quarterback–game observation, the opposing defense’s season-level EPA allowed is joined using the game season and defensive team, providing a control for opponent strength.
 
 
 
