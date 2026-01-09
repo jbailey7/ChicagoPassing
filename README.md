@@ -32,7 +32,7 @@ To test these questions, I will use four models. The dependent variable in all m
 
 Models 3 and 4 will both have two versions. Version one will consider temperature to be a linear variable, while version 2 will consider temperature as a categorical variable to test whether temperature effects are linear. The difference in these variables is explained further in the etl/README file. 
 
-All regression models in this project are estimated using ordinary least squares with HC3 heteroskedasticity-robust standard errors. Standard OLS inference assumes that the unexplained variability in quarterback performance is the same in every game, but this is unlikely to be true in an NFL setting, where outcomes can be much more volatile under certain conditions such as extreme weather, strong opponents, or unusual game situations. When this assumption is violated, coefficient estimates remain correct on average, but standard errors and p-values can be misleading. HC3 adjusts the calculation of standard errors so they remain reliable even when variability differs across observations, placing less weight on especially influential or unusual games. Importantly, this adjustment does not change the estimated effects themselves but rather only affects how much uncertainty is attributed to those estimates. Using HC3 therefore provides more trustworthy statistical inference while preserving the standard interpretation of regression coefficients.
+All regression models in this project are estimated using ordinary least squares with HC3 heteroskedasticity-robust standard errors. Standard OLS inference assumes that the unexplained variability in quarterback performance is the same in every game, but this is unlikely to be true in an NFL setting, where outcomes can be much more volatile under certain conditions such as extreme weather, strong opponents, or unusual game situations. When this assumption is violated, coefficient estimates remain correct on average, but standard errors and p-values can be misleading. HC3 adjusts the calculation of standard errors so they remain reliable even when variability differs across observations. Importantly, this adjustment does not change the estimated effects themselves but rather only affects how much uncertainty is attributed to those estimates. Using HC3 therefore provides more trustworthy statistical inference while preserving the standard interpretation of regression coefficients.
 
 ### Results
 
@@ -48,11 +48,11 @@ Even though temperature does not show up as statistically significant in the reg
 
 ![Temperature (linear) vs Predicted QB EPA per Dropback](images/temp_linear_vs_qb.png)
 
-Finally, precipitation is associated with lower quarterback EPA per dropback at most outdoor stadiums. At Soldier Field, where baseline passing efficiency is already lower, the additional impact of precipitation is comparatively small, indicating no amplification of precipitation effects.
+Finally, precipitation is associated with lower quarterback EPA per dropback at most outdoor stadiums. At Soldier Field, where baseline passing efficiency is already lower, the additional impact of precipitation is comparatively small, indicating no amplification of precipitation effects. This pattern mirrors the wind results, reinforcing the conclusion that Soldier Field does not amplify adverse weather effects.
 
 ![Precipitation vs Predicted QB EPA per Dropback](images/precip_vs_qb.png)
 
-The table summarizes how changes in weather conditions affect predicted quarterback EPA per dropback, comparing games played at Soldier Field to games at other outdoor stadiums. Each row shows the change in predicted EPA per dropback when a weather variable worsens by a meaningful amount, holding all other factors constant.
+The table summarizes how changes in weather conditions affect predicted quarterback EPA per dropback, comparing games played at Soldier Field to games at other outdoor stadiums. Each row shows the change in predicted EPA per dropback when a weather variable worsens by a meaningful amount, holding all other factors constant. Values represent differences in predicted EPA per dropback between two weather scenarios, not absolute performance levels.
 
 Across all stadiums, worsening weather generally reduces quarterback efficiency. Increasing wind from low to high levels leads to a sizable drop in EPA per dropback at other stadiums, while precipitation also has a clearly negative effect. Warmer temperatures are associated with slightly improved quarterback performance elsewhere.
 
@@ -62,8 +62,17 @@ Overall, these results indicate that while weather negatively affects quarterbac
 
 ![Impact Table](images/impact_table.png)
 
-Finally, I compared temperature as a linear variable vs as a categorical variable to see if that would lead to any differing results. As shown below, the two approaches lead to the same qualitative conclusions. In both cases, colder temperatures are associated with lower quarterback EPA per dropback, with especially poor performance at Soldier Field under cold conditions, and improved performance as temperatures rise.
-
-The categorical model highlights non-linear patterns—most notably the sharp decline in quarterback performance at Soldier Field in freezing conditions—while the linear model smooths this behavior into a steeper overall temperature gradient. Importantly, neither specification changes the direction or interpretation of the results. Because the key findings are consistent across both approaches, the earlier conclusions regarding weather effects and Soldier Field interactions are robust to how temperature is modeled, and the preceding analysis remains valid.
+To check whether the results depend on how temperature is modeled, temperature was analyzed both as a continuous variable and as a set of categorical bins. Although these approaches represent temperature differently, they lead to the same qualitative conclusions. In both cases, colder conditions are associated with lower quarterback EPA per dropback, with especially poor performance at Soldier Field in cold weather and improved performance as temperatures rise. The categorical model highlights non-linear patterns in extreme cold, while the linear model smooths these effects into a single trend. Because the overall conclusions are consistent across both approaches, the results are robust to how temperature is modeled.
 
 ![Linear vs Categorical Temperature](images/linear_vs_cat_temp.png)
+
+# Key Takeaways
+Weather conditions meaningfully affect quarterback performance in outdoor NFL games, with wind, precipitation, and temperature all associated with changes in EPA per dropback.
+
+Quarterback EPA per dropback is lower on average at Soldier Field compared to other outdoor stadiums, even after controlling for opponent defensive strength and game context.
+
+Wind and precipitation do not have a disproportionately negative effect at Soldier Field; instead, their marginal impacts are smaller there than at other stadiums.
+
+Cold temperatures appear to be especially harmful to passing efficiency at Soldier Field, though this effect alone does not explain the Bears’ long-standing lack of elite passing seasons.
+
+Overall, the results suggest that weather is not the primary reason for Chicago’s historical passing struggles. Factors unrelated to stadium or weather—such as quarterback talent and organizational decisions—are more likely to be responsible.
