@@ -16,7 +16,7 @@ Defensive strength is also measured using season-level defensive EPA allowed per
 
 To improve interpretability, continuous predictors such as temperature, wind speed, and defensive EPA are mean-centered.
 
-For more detailed information about the data itself, refer to the README file in the etl/ folder. 
+For more detailed information about the data itself, refer to the README file in the `etl/ folder`. 
 
 ### Modeling
 
@@ -76,3 +76,6 @@ Wind and precipitation do not have a disproportionately negative effect at Soldi
 Cold temperatures appear to be especially harmful to passing efficiency at Soldier Field, though this effect alone does not explain the Bears’ long-standing lack of elite passing seasons.
 
 Overall, the results suggest that weather is not the primary reason for Chicago’s historical passing struggles. Factors unrelated to stadium or weather—such as quarterback talent and organizational decisions—are more likely to be responsible.
+
+### Additional Note on Weather Context
+Although Chicago is often labeled the “Windy City,” its weather is not uniquely extreme among outdoor NFL markets. While a full climatological comparison across cities is beyond the scope of this project, other lakefront cities such as Buffalo and Cleveland experience similar wind and winter conditions, yet have produced higher level quarterback play in recent seasons. While adverse weather clearly hurts quarterback efficiency, the evidence suggests that Chicago’s long-standing passing struggles are not simply the result of consistently worse weather.

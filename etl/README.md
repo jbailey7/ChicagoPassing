@@ -63,7 +63,7 @@ Temperature will be tested in two ways. The first way is to consider it a linear
 
 Precipitation is represented as a boolean indicator derived from game-level weather data. Games are marked as having precipitation if rain or snow related conditions were recorded at kickoff. This approach assumes that weather conditions do not change substantially over the course of a game. While imperfect, it provides a consistent proxy for inclement weather across seasons. 
 
-Also note that I am not considering any games played in a dome. This data is limited to only outdoor games where we have weather data available. 
+This analysis excludes all games played in domes. This data is limited to only outdoor games where we have weather data available. 
 
 ### Table 2: QB_GAME_STATS
 The QB_GAME_STATS table contains information about each quarterback performance per game. Because each game will have at least two quarterbacks playing, this data is stored separately from the generic game information. Each entry in this table will contain information about which game it was, who the quarterback was, who the game was between, if this quarterback was playing at home, and passing stats for that game. 
@@ -74,5 +74,9 @@ All of this data comes straight from the data source except for number of dropba
 The DEFENSE_SEASON_STATS table contains season-level defensive EPA allowed per play for each team. For each quarterback–game observation, the opposing defense’s season-level EPA allowed is joined using the game season and defensive team, providing a control for opponent strength.
 
 
+# Assumptions and Limitations
+**Weather Measurement**: Weather conditions are measured at kickoff and assumed to be representative of conditions throughout the game. In reality, weather can change during play, especially for precipitation and wind. While this assumption introduces noise, it provides a consistent and scalable proxy for game-level weather across seasons.
 
-Also important to note is that because the objective of this project is to study the impact of weather on passing performance, the dataset is restricted to games with complete weather observations.
+**Season-Level Defensive Strength**: Defensive strength is measured using season-level defensive EPA allowed per play. This assumes that a defense’s quality is relatively stable within a season and does not account for injuries, roster changes, or game-specific matchups that may affect performance in individual games.
+
+**Quarterback-Level Differences**: The models do not include quarterback fixed effects. As a result, differences in quarterback talent, experience, or play style are not explicitly controlled for and may contribute to residual variation in EPA per dropback. The analysis is therefore best interpreted as estimating average effects across quarterbacks rather than player-specific impacts.
