@@ -34,6 +34,14 @@ Models 3 and 4 will both have two versions. Version one will consider temperatur
 
 All regression models in this project are estimated using ordinary least squares with HC3 heteroskedasticity-robust standard errors. Standard OLS inference assumes that the unexplained variability in quarterback performance is the same in every game, but this is unlikely to be true in an NFL setting, where outcomes can be much more volatile under certain conditions such as extreme weather, strong opponents, or unusual game situations. When this assumption is violated, coefficient estimates remain correct on average, but standard errors and p-values can be misleading. HC3 adjusts the calculation of standard errors so they remain reliable even when variability differs across observations. Importantly, this adjustment does not change the estimated effects themselves but rather only affects how much uncertainty is attributed to those estimates. Using HC3 therefore provides more trustworthy statistical inference while preserving the standard interpretation of regression coefficients.
 
+### Alternative Models
+
+Two alternative modeling approaches are used as robustness checks to complement the OLS regression analysis.
+
+**Random Forest** — A Random Forest regressor is evaluated on the Model 4.1 feature set (including interaction terms) using 10-fold cross-validation. This provides a stable, non-parametric estimate of out-of-sample predictive performance and a feature importance ranking that can be compared against the OLS significance results.
+
+**Lasso & Ridge Regression** — Regularized linear models are fit on the Model 4.1 feature set (including interaction terms) with cross-validated alpha selection. Features are standardized so that penalized coefficients are directly comparable. Lasso (L1) identifies which predictors survive shrinkage to zero, while Ridge (L2) shrinks all coefficients without eliminating any. If the same variables that are statistically significant in OLS also retain non-zero Lasso coefficients, this strengthens confidence in their importance independent of the estimation method.
+
 ### Results
 
 Review of the model summaries shows a consistent pattern across specifications. Opponent defensive EPA allowed is statistically significant in every model, highlighting its importance as a control variable. When weather variables are added, wind speed and precipitation are also consistently significant, while the Soldier Field indicator is no longer precisely estimated. This pattern holds under both linear and categorical temperature specifications, suggesting that weather and opponent quality are the most reliably estimated factors affecting quarterback EPA per dropback.
@@ -66,6 +74,16 @@ To check whether the results depend on how temperature is modeled, temperature w
 
 ![Linear vs Categorical Temperature](images/linear_vs_cat_temp.png)
 
+### Alternative Model Results
+
+The 10-fold cross-validated Random Forest achieves a near-zero test R-squared, consistent with the OLS models and confirming that weather and stadium features alone explain very little of the play-level variance in EPA. The standard deviation across folds is small, indicating this result is stable rather than an artifact of a particular data split. The feature importance ranking aligns with the OLS findings: opponent defensive EPA dominates, followed by wind and precipitation, while the Soldier Field indicator and interaction terms rank low.
+
+![Random Forest Feature Importance](images/rf_importance.png)
+
+The Lasso and Ridge models produce R-squared values nearly identical to OLS, confirming that overfitting is not a concern. The coefficient comparison below shows that the variables which are statistically significant in OLS (opponent defensive EPA, wind, precipitation) retain the largest coefficients under both Lasso and Ridge penalization, while non-significant predictors are shrunk toward or to zero. This convergence across OLS significance testing and regularized variable selection reinforces the main inference conclusions.
+
+![Coefficient Comparison: OLS vs Lasso vs Ridge](images/regularized_coefs.png)
+
 # Key Takeaways
 Weather conditions meaningfully affect quarterback performance in outdoor NFL games, with wind, precipitation, and temperature all associated with changes in EPA per dropback.
 
@@ -95,7 +113,7 @@ pip install -r requirements.txt
 
 ### Running the Analysis
 1. **ETL**: Run `etl/etl.ipynb` from top to bottom. This pulls NFL play-by-play data via `nflreadpy`, cleans it, and writes three Parquet files to `data/`.
-2. **Analysis**: Run `src/main.ipynb` from top to bottom. This loads the Parquet files, performs EDA, fits the OLS and Random Forest models, and generates all figures saved to `images/`.
+2. **Analysis**: Run `src/main.ipynb` from top to bottom. This loads the Parquet files, performs EDA, fits the OLS, Random Forest, and regularized regression models, and generates all figures saved to `images/`.
 
 ### Project Structure
 ```
