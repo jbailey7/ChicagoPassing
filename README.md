@@ -88,7 +88,7 @@ Although Chicago is often labeled the "Windy City," its weather is not uniquely 
 
 ### Setup
 ```bash
-git clone https://github.com/jackbailey/ChicagoPassing.git
+git clone https://github.com/jbailey7/ChicagoPassing
 cd ChicagoPassing
 pip install -r requirements.txt
 ```
